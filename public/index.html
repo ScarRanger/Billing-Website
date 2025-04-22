@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vadwal Utsav Billing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="title">Vadwal Utsav Billing</h1>
+
+        <div class="order-form">
+            <!-- Dish Selection -->
+            <div class="dish-group">
+                <div class="dish">
+                    <label for="Pork Chilly">Pork Chilly</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Pork Chilly" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Pork Vindaloo">Pork Vindaloo</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Pork Vindaloo" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Pork Sarpotel">Pork Sarpotel</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Pork Sarpotel" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Pork Sukha">Pork Sukha</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Pork Sukha" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Chicken Bhujing">Chicken Bhujing</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Chicken Bhujing" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Pattice">Pattice</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Pattice" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Pattice Pav">Pattice Pav</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Pattice Pav" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Omelette Pav">Omellete Pav</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Omelette Pav" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Chicken Container">Chicken Container</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Chicken Container" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drink Selection -->
+            <div class="dish-group">
+                <div class="dish">
+                    <label for="Mojito">Mojito</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Mojito" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Blue Lagoon">Blue Lagoon</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Blue Lagoon" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Pink Lemonade">Pink Lemonade</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Pink Lemonade" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Mode -->
+            <div class="payment">
+                <label for="paymentMode">Payment Mode</label>
+                <select id="paymentMode">
+                    <option value="Cash">Cash</option>
+                    <option value="UPI">UPI</option>
+                </select>
+            </div>
+
+            <!-- Total Amount -->
+            <div class="total">
+                <h3>Total: <span id="totalAmount">0</span> INR</h3>
+            </div>
+
+            <!-- Finalize Button -->
+            <button id="finalizeOrder" class="btn-finalize">
+                <span class="spinner" style="display:none;">⏳</span> Finalize Order
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
