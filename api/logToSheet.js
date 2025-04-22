@@ -21,6 +21,8 @@ export default async function handler(req, res) {
 
         const {
             timestamp,
+            customAmount,
+            notes,
             paymentMode,
             totalAmount,
             ...dishes
@@ -46,7 +48,7 @@ export default async function handler(req, res) {
         ];
 
         dishList.forEach(dish => row.push(dishes[dish] || 0));
-        row.push(totalAmount, paymentMode);
+        row.push(customAmount, totalAmount, paymentMode, notes);
 
         await sheets.spreadsheets.values.append({
             spreadsheetId: sheetId,

@@ -14,22 +14,28 @@ document.addEventListener('DOMContentLoaded', () => {
         "Chicken Container": 150
     };
 
-    // Initialize the total amount
     let totalAmount = 0;
 
-    // Update the total amount display
+    function getCustomAmount() {
+        return parseInt(document.getElementById('customAmount').value) || 0;
+    }
+
     function updateTotal() {
+        const dishTotal = Object.keys(prices).reduce((sum, key) => {
+            const quantity = parseInt(document.getElementById(key).value) || 0;
+            return sum + (prices[key] * quantity);
+        }, 0);
+        const custom = getCustomAmount();
+        totalAmount = dishTotal + custom;
         document.getElementById('totalAmount').textContent = totalAmount;
     }
 
-    // Handle quantity increase or decrease
     document.querySelectorAll('.increase').forEach((button) => {
         button.addEventListener('click', () => {
             const input = button.previousElementSibling;
             const dishName = input.id;
             const quantity = parseInt(input.value) + 1;
             input.value = quantity;
-            totalAmount += prices[dishName];
             updateTotal();
         });
     });
@@ -38,43 +44,40 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const input = button.nextElementSibling;
             const dishName = input.id;
-            const quantity = Math.max(0, parseInt(input.value) - 1); // Prevent going below 0
+            const quantity = Math.max(0, parseInt(input.value) - 1);
             input.value = quantity;
-            totalAmount -= prices[dishName];
             updateTotal();
         });
     });
 
-    // Handle direct input changes
     document.querySelectorAll('.dish input').forEach((input) => {
         input.addEventListener('input', () => {
-            // Ensure the value is an integer and non-negative
             input.value = Math.max(0, parseInt(input.value) || 0);
-            
-            // Update the total amount based on the new quantity
-            const dishName = input.id;
-            const quantities = Array.from(document.querySelectorAll('.dish input')).reduce((acc, input) => {
-                acc[input.id] = parseInt(input.value) || 0;
-                return acc;
-            }, {});
-            
-            totalAmount = Object.keys(quantities).reduce((sum, key) => sum + (prices[key] * quantities[key]), 0);
             updateTotal();
         });
     });
 
-    // Finalize order
+    document.getElementById('customAmount').addEventListener('input', () => {
+        updateTotal();
+    });
+
     document.getElementById('finalizeOrder').addEventListener('click', async () => {
         const finalizeButton = document.getElementById('finalizeOrder');
+        const spinner = finalizeButton.querySelector('.spinner');
         finalizeButton.disabled = true;
-        const originalText = finalizeButton.textContent;
-        finalizeButton.textContent = "Submitting...";
+        spinner.style.display = 'inline-block';
+        finalizeButton.childNodes[1].textContent = ' Finalizing...';
 
         const paymentMode = document.getElementById('paymentMode').value;
+        const customAmount = getCustomAmount();
+        const notes = document.getElementById('notes').value;
+
         const orderData = {
             timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
             paymentMode,
             totalAmount,
+            customAmount,
+            notes,
             "Pork Chilly": document.getElementById('Pork Chilly').value,
             "Pork Vindaloo": document.getElementById('Pork Vindaloo').value,
             "Pork Sarpotel": document.getElementById('Pork Sarpotel').value,
@@ -86,8 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Mojito": document.getElementById('Mojito').value,
             "Blue Lagoon": document.getElementById('Blue Lagoon').value,
             "Pink Lemonade": document.getElementById('Pink Lemonade').value,
-            "Chicken Container": document.getElementById('Chicken Container').value,
-            notes: "" // Optional notes can be added here
+            "Chicken Container": document.getElementById('Chicken Container').value
         };
 
         try {
@@ -116,17 +118,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         finalizeButton.disabled = false;
-        finalizeButton.textContent = originalText;
+        spinner.style.display = 'none';
+        finalizeButton.childNodes[1].textContent = ' Finalize Order';
     });
 
-
-    // Function to reset the form
     function resetForm() {
         document.querySelectorAll('.dish input').forEach(input => {
             input.value = 0;
         });
-
-        document.getElementById('paymentMode').value = "Cash"; // Reset payment mode to default
-        document.getElementById('totalAmount').textContent = '0'; // Reset total amount
+        document.getElementById('customAmount').value = 0;
+        document.getElementById('notes').value = "";
+        document.getElementById('paymentMode').value = "Cash";
+        document.getElementById('totalAmount').textContent = '0';
     }
 });
