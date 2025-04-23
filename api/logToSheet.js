@@ -1,7 +1,6 @@
 import { google } from 'googleapis';
 import { Timestamp } from 'firebase-admin/firestore';
 
-
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(405).send('Method not allowed');
@@ -31,9 +30,12 @@ export default async function handler(req, res) {
             ...dishes
         } = req.body;
 
+        // Convert Firestore timestamp to a string (ISO format)
+        const formattedTimestamp = new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate().toISOString();
+
         const sheetId = process.env.GOOGLE_SHEET_ID;
 
-        const row = [timestamp, customerName];
+        const row = [formattedTimestamp, customerName];
 
         const dishList = [
             "Pork Chilly",
@@ -53,6 +55,7 @@ export default async function handler(req, res) {
         dishList.forEach(dish => row.push(dishes[dish] || 0));
         row.push(customAmount, totalAmount, paymentMode, notes);
 
+        // Log the order to Google Sheets
         await sheets.spreadsheets.values.append({
             spreadsheetId: sheetId,
             range: 'main!A2',

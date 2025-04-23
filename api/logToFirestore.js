@@ -33,7 +33,8 @@ export default async function handler(req, res) {
             const newOrder = {
                 ...data,
                 timestamp: admin.firestore.Timestamp.now(),
-                orderNumber: nextOrderNumber
+                orderNumber: nextOrderNumber,
+                done: false
             };
 
             const newDocRef = ordersRef.doc();
