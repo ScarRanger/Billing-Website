@@ -94,29 +94,23 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const [firestoreResponse, sheetResponse] = await Promise.all([
-                fetch("/api/logToFirestore", {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(orderData)
-                }),
-                fetch("/api/logToSheet", {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(orderData)
-                })
-            ]);
+            const firestoreResponse = await fetch("/api/logToFirestore", {
+                method: "POST",
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData)
+            });
 
-            
 
-            if (firestoreResponse.ok && sheetResponse.ok) {
+
+            if (firestoreResponse.ok) {
                 const firestoreData = await firestoreResponse.json();
-                console.log('Firestore response:', firestoreData); // 👈 Grab response
-                alert(`Order Finalized! Order Number: ${firestoreData.orderNumber}`); // ✅ Display order number
+                alert(`Order Finalized! Order Number: ${firestoreData.orderNumber}`); // ✅ Here
                 resetForm();
             } else {
                 throw new Error('Failed to submit data');
             }
+            
+
         } catch (error) {
             console.error('Error:', error);
             alert('Something went wrong!');

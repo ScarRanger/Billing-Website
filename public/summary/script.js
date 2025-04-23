@@ -53,23 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const orderElement = document.createElement('div');
                 orderElement.classList.add('order-card');
     
-                // Check if this order is marked as done
-                if (doneOrders.includes(order.id)) {
-                    orderElement.classList.add('done');
-                }
+                const isDone = doneOrders.includes(order.id);
+                if (isDone) orderElement.classList.add('done');
     
-                // Format timestamp into a readable format (optional)
                 const formattedTimestamp = new Date(order.timestamp.seconds * 1000).toLocaleString();
     
-                // Display the order number and ID correctly
                 orderElement.innerHTML = `
                     <div class="order-header">
-                        <h3>Order #${order.orderNumber}</h3>  <!-- Correct order number without leading zeroes -->
-                        <h3>Order ID: ${order.id}</h3>
+                        <h3>Order #${order.orderNumber}</h3>
                         <p><strong>Customer Name:</strong> ${order.customerName}</p>
                         <p><strong>Payment Mode:</strong> ${order.paymentMode}</p>
                         <p><strong>Total Amount:</strong> ₹${order.totalAmount}</p>
-                        <p><strong>Timestamp:</strong> ${formattedTimestamp}</p>  <!-- Formatted timestamp -->
+                        <p><strong>Timestamp:</strong> ${formattedTimestamp}</p>
                     </div>
     
                     <div class="order-details">
@@ -82,29 +77,60 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>${order.notes || 'No notes provided'}</p>
                     </div>
     
-                    <button class="mark-done" data-id="${order.id}">Mark as Done</button>
+                    <button class="mark-done" data-id="${order.id}" ${isDone ? 'disabled' : ''}>
+                        ${isDone ? '✔ Marked Done' : 'Mark as Done'}
+                    </button>
                 `;
                 summaryList.appendChild(orderElement);
             });
     
-            // Attach listeners
+            // Attach listeners to newly created buttons
             document.querySelectorAll('.mark-done').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = e.target.dataset.id;
-                    const orderCard = e.target.closest('.order-card');
-                    orderCard.classList.add('done');
+                button.addEventListener('click', async (e) => {
+                    const btn = e.target;
+                    const id = btn.dataset.id;
     
+                    // Disable immediately to prevent multiple clicks
+                    if (btn.disabled) return;
+                    btn.disabled = true;
+                    btn.textContent = 'Marking...';
+    
+                    const orderCard = btn.closest('.order-card');
                     const updatedDoneOrders = [...new Set([...getDoneOrders(), id])];
                     setDoneOrders(updatedDoneOrders);
+                    orderCard.classList.add('done');
+    
+                    const order = orders.find(o => o.id === id);
+                    if (!order) {
+                        alert('Order not found for sheet logging');
+                        btn.disabled = false;
+                        btn.textContent = 'Mark as Done';
+                        return;
+                    }
+    
+                    try {
+                        const response = await fetch("/api/logToSheet", {
+                            method: "POST",
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(order)
+                        });
+    
+                        const result = await response.json();
+                        if (!response.ok) throw new Error(result.error || 'Sheet logging failed');
+    
+                        console.log(`Order #${order.orderNumber} logged to sheet.`);
+                        btn.textContent = '✔ Marked Done';
+                    } catch (err) {
+                        console.error('Sheet logging error:', err);
+                        alert('Failed to log to sheet. Please try again.');
+                        btn.disabled = false;
+                        btn.textContent = 'Mark as Done';
+                    }
                 });
             });
         }
     }
     
-
-
-
-
     function renderDishes(order) {
         const dishes = [
             "Pork Chilly", "Pork Vindaloo", "Pork Sarpotel", "Pork Sukha", "Chicken Bhujing",

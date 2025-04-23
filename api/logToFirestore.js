@@ -18,30 +18,34 @@ export default async function handler(req, res) {
     try {
         const data = req.body;
 
-        // Don't trust timestamp from client — set on server
         const counterRef = db.collection('VU_counters').doc('orderNumber');
         const ordersRef = db.collection('VU_billing');
 
-        const orderNumber = await db.runTransaction(async (transaction) => {
+        let orderNumber;
+
+        await db.runTransaction(async (transaction) => {
             const counterDoc = await transaction.get(counterRef);
-            const current = counterDoc.exists ? parseInt(counterDoc.data().current, 10) : 0; // Ensure it's an integer
+            const current = counterDoc.exists ? parseInt(counterDoc.data().current, 10) : 0;
             const nextOrderNumber = current + 1;
 
-            transaction.set(counterRef, { current: nextOrderNumber }, { merge: true });
+            orderNumber = nextOrderNumber;
 
             const newOrder = {
                 ...data,
-                timestamp: admin.firestore.Timestamp.now(), // ✅ Correct timestamp type
+                timestamp: admin.firestore.Timestamp.now(),
                 orderNumber: nextOrderNumber
             };
 
             const newDocRef = ordersRef.doc();
+            transaction.set(counterRef, { current: nextOrderNumber }, { merge: true });
             transaction.set(newDocRef, newOrder);
-
-            return nextOrderNumber;
         });
 
-        res.status(200).json({ message: 'Order logged', orderNumber });
+        return res.status(200).json({
+            message: 'Order logged to Firestore',
+            orderNumber: orderNumber
+        });
+
     } catch (error) {
         console.error('Error logging order:', error);
         res.status(500).json({ error: 'Failed to log order' });
