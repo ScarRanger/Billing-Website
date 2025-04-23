@@ -1,4 +1,6 @@
 import { google } from 'googleapis';
+import { Timestamp } from 'firebase-admin/firestore';
+
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -21,6 +23,7 @@ export default async function handler(req, res) {
 
         const {
             timestamp,
+            customerName,
             customAmount,
             notes,
             paymentMode,
@@ -30,7 +33,7 @@ export default async function handler(req, res) {
 
         const sheetId = process.env.GOOGLE_SHEET_ID;
 
-        const row = [timestamp];
+        const row = [timestamp, customerName];
 
         const dishList = [
             "Pork Chilly",

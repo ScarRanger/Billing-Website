@@ -1,0 +1,128 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h3,
+h4,
+p {
+    margin: 0 0 10px 0;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Order Summary Container */
+.order-summary-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Order Card Styles */
+.order-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.order-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order-details li {
+    margin-bottom: 5px;
+}
+
+.order-notes {
+    margin-top: 20px;
+    font-style: italic;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+    .order-summary-container {
+        padding: 10px;
+    }
+
+    .order-card {
+        padding: 15px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+
+#orderSummary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.order-card {
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.order-card.done {
+    background-color: #d4edda; /* Light green background */
+    border-color: #28a745;     /* Green border */
+    color: #155724;            /* Optional: darker text for contrast */
+}
+
+.order-header h3 {
+    margin-top: 0;
+}
+
+.order-details ul {
+    padding-left: 20px;
+}
+
+.order-details ul li {
+    list-style: disc;
+}
+
+button.mark-done-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.mark-done-btn:hover {
+    background-color: #0056b3;
+}

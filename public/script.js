@@ -71,13 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const paymentMode = document.getElementById('paymentMode').value;
         const customAmount = getCustomAmount();
         const notes = document.getElementById('notes').value;
+        const customerName = document.getElementById('customerName').value; // Get customer name
 
         const orderData = {
-            timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
             paymentMode,
             totalAmount,
             customAmount,
             notes,
+            customerName, // Include customer name
             "Pork Chilly": document.getElementById('Pork Chilly').value,
             "Pork Vindaloo": document.getElementById('Pork Vindaloo').value,
             "Pork Sarpotel": document.getElementById('Pork Sarpotel').value,
@@ -106,8 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
             ]);
 
+            
+
             if (firestoreResponse.ok && sheetResponse.ok) {
-                alert('Order Finalized!');
+                const firestoreData = await firestoreResponse.json();
+                console.log('Firestore response:', firestoreData); // 👈 Grab response
+                alert(`Order Finalized! Order Number: ${firestoreData.orderNumber}`); // ✅ Display order number
                 resetForm();
             } else {
                 throw new Error('Failed to submit data');
@@ -126,9 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.dish input').forEach(input => {
             input.value = 0;
         });
-        document.getElementById('customAmount').value = 0;
+        document.getElementById('customAmount').value = "";
         document.getElementById('notes').value = "";
         document.getElementById('paymentMode').value = "Cash";
         document.getElementById('totalAmount').textContent = '0';
+        document.getElementById('customerName').value = "";
+
     }
 });
