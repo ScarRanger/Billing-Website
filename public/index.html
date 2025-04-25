@@ -95,7 +95,7 @@
                 </div>
             </div>
 
-            
+
             <!-- Drink Selection -->
             <div class="dish-group">
                 <div class="dish">
@@ -136,12 +136,15 @@
             </div>
 
             <!-- Payment Mode -->
-            <div class="payment">
-                <label for="paymentMode">Payment Mode</label>
-                <select id="paymentMode">
-                    <option value="Cash">Cash</option>
-                    <option value="UPI">UPI</option>
-                </select>
+            <div class="payment-radio-container">
+                <label class="payment-label">Payment Mode:</label>
+                <div class="radio-group">
+                    <input type="radio" id="cash" name="paymentMode" value="Cash" class="radio-input">
+                    <label for="cash" class="radio-label">Cash</label>
+
+                    <input type="radio" id="upi" name="paymentMode" value="UPI" class="radio-input">
+                    <label for="upi" class="radio-label">UPI</label>
+                </div>
             </div>
 
             <!-- Total Amount -->
