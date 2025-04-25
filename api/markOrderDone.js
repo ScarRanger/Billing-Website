@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 if (!admin.apps.length) {
@@ -18,12 +19,22 @@ export default async function handler(req, res) {
     try {
         const { id } = req.body;
 
-        const orderRef = db.collection('VU_billing').doc(id);
-        await orderRef.update({ done: true });
+        if (!id) {
+            return res.status(400).json({ error: 'Missing order ID' });
+        }
 
-        res.status(200).json({ message: 'Order marked as done' });
+        const orderRef = db.collection('VU_billing').doc(id);
+
+        // Only mark as done, assuming edits are already applied
+        await orderRef.update({
+            done: true,
+            markedDone: true,
+            finalizedAt: admin.firestore.FieldValue.serverTimestamp()
+        });
+
+        res.status(200).json({ message: 'Order successfully marked as done' });
     } catch (error) {
         console.error('Error marking order as done:', error);
-        res.status(500).json({ error: 'Failed to update order' });
+        res.status(500).json({ error: 'Failed to mark order as done' });
     }
 }

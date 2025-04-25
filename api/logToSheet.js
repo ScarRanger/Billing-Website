@@ -11,7 +11,7 @@ export default async function handler(req, res) {
             Buffer.from(process.env.GOOGLE_CREDENTIALS, 'base64').toString('utf8')
         );
 
-        // Auth with Google Sheets
+        // Authenticate with Google Sheets API
         const auth = new google.auth.GoogleAuth({
             credentials,
             scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -20,21 +20,18 @@ export default async function handler(req, res) {
         const sheets = google.sheets({ version: 'v4', auth });
 
         const {
-            customerName,
-            customAmount,
-            notes,
-            paymentMode,
-            totalAmount,
+            customerName = '',
+            customAmount = '',
+            notes = '',
+            paymentMode = '',
+            totalAmount = '',
             ...dishes
         } = req.body;
 
         const sheetId = process.env.GOOGLE_SHEET_ID;
 
-        // You can optionally insert the current time here if desired:
-        // const finalizedAt = new Date().toISOString();
-
-        // Start row (remove timestamp column, or insert current time if needed)
-        const row = [customerName];
+        // Optional: add a finalized timestamp if needed
+        // const finalizedAt = new Date().toLocaleString();
 
         const dishList = [
             "Pork Chilly",
@@ -51,8 +48,9 @@ export default async function handler(req, res) {
             "Chicken Container"
         ];
 
+        // Construct row data in the expected column order
+        const row = [customerName];
         dishList.forEach(dish => row.push(dishes[dish] || 0));
-
         row.push(customAmount, totalAmount, paymentMode, notes);
 
         await sheets.spreadsheets.values.append({
