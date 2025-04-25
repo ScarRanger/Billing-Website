@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
         try {
             const ordersSnapshot = await db.collection('VU_billing')
-                .orderBy('timestamp', 'desc')
+                .orderBy('orderNumber', 'desc')
                 .get();
 
             if (ordersSnapshot.empty) {

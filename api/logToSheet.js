@@ -1,5 +1,4 @@
 import { google } from 'googleapis';
-import { Timestamp } from 'firebase-admin/firestore';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -21,7 +20,6 @@ export default async function handler(req, res) {
         const sheets = google.sheets({ version: 'v4', auth });
 
         const {
-            timestamp,
             customerName,
             customAmount,
             notes,
@@ -30,12 +28,13 @@ export default async function handler(req, res) {
             ...dishes
         } = req.body;
 
-        // Convert Firestore timestamp to a string (ISO format)
-        const formattedTimestamp = new Timestamp(timestamp.seconds, timestamp.nanoseconds).toDate().toISOString();
-
         const sheetId = process.env.GOOGLE_SHEET_ID;
 
-        const row = [formattedTimestamp, customerName];
+        // You can optionally insert the current time here if desired:
+        // const finalizedAt = new Date().toISOString();
+
+        // Start row (remove timestamp column, or insert current time if needed)
+        const row = [customerName];
 
         const dishList = [
             "Pork Chilly",
@@ -53,9 +52,9 @@ export default async function handler(req, res) {
         ];
 
         dishList.forEach(dish => row.push(dishes[dish] || 0));
+
         row.push(customAmount, totalAmount, paymentMode, notes);
 
-        // Log the order to Google Sheets
         await sheets.spreadsheets.values.append({
             spreadsheetId: sheetId,
             range: 'main!A2',

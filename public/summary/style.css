@@ -126,3 +126,18 @@ button.mark-done-btn {
 button.mark-done-btn:hover {
     background-color: #0056b3;
 }
+
+
+.progress-bar {
+    height: 5px;
+    background-color: green;
+    transition: width 1s linear;
+}
+
+button:disabled {
+    background-color: gray;
+}
+
+button {
+    cursor: pointer;
+}
