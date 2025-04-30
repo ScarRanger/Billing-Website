@@ -256,3 +256,21 @@ button:disabled {
 button {
     cursor: pointer;
 }
+
+.pickup-time, .transaction-id, .payment-screenshot {
+    margin-bottom: 15px;
+}
+
+.pickup-time label, .transaction-id label, .payment-screenshot label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.pickup-time select, .transaction-id input, .payment-screenshot input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

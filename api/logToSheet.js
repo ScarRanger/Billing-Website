@@ -44,7 +44,7 @@ export default async function handler(req, res) {
             "Omelette Pav",
             "Mojito",
             "Blue Lagoon",
-            "Pink Lemonade",
+            "Orange Lemonade",
             "Chicken Container"
         ];
 

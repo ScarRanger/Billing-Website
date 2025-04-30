@@ -1,0 +1,204 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 20px;
+    overflow-y: auto;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+#orderStatusContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#orderStatusTitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    animation: moveText 5s linear infinite;
+}
+
+#orderCubes {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.orderCube {
+    min-width: 60px;
+    height: 40px;
+    background-color: #f0f0f0;
+    color: black;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    flex-shrink: 0;
+    transition: background-color 0.3s;
+}
+
+.orderCube.done {
+    background-color: #4CAF50;
+    color: white;
+}
+
+@keyframes moveText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Form layout */
+.order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Horizontal layout on bigger screens */
+@media (min-width: 1024px) {
+    .order-form {
+        flex-direction: row;
+        gap: 40px;
+        align-items: flex-start;
+    }
+}
+
+.form-section {
+    flex: 1;
+}
+
+/* Dishes */
+.dish-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dish {
+    flex: 1 1 45%;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dish label {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+}
+
+.quantity button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.quantity input {
+    width: 50px;
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 0 10px;
+}
+
+.name, .notes, .custom-amount, .payment-radio-container, .total {
+    margin-bottom: 15px;
+}
+
+.name label, .notes label, .custom-amount label, .payment-label {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.name input, .notes input, .custom-amount input {
+    width: 100%;
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.payment-radio-container {
+    display: flex;
+    align-items: center;
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-input {
+    width: 20px;
+    height: 20px;
+}
+
+.radio-label {
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.total {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.btn-finalize {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-finalize:hover {
+    background-color: #218838;
+}
+
+.spinner {
+    margin-right: 10px;
+}

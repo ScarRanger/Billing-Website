@@ -20,7 +20,7 @@ export default async function handler(req, res) {
                 // Extract and ensure dish data is flat and display-safe
                 const dishFields = [
                     "Pork Chilly", "Pork Vindaloo", "Pork Sarpotel", "Pork Sukha", "Chicken Bhujing",
-                    "Pattice", "Pattice Pav", "Omelette Pav", "Mojito", "Blue Lagoon", "Pink Lemonade",
+                    "Pattice", "Pattice Pav", "Omelette Pav", "Mojito", "Blue Lagoon", "Orange Lemonade",
                     "Chicken Container"
                 ];
 

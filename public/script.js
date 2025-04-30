@@ -1,32 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     const prices = {
-        "Pork Chilly": 100,
-        "Pork Vindaloo": 100,
-        "Pork Sarpotel": 100,
-        "Pork Sukha": 100,
-        "Chicken Bhujing": 100,
-        "Pattice": 25,
-        "Pattice Pav": 30,
+        "Pork Chilly": 200,
+        "Pork Vindaloo": 220,
+        "Pork Sarpotel": 220,
+        "Pork Sukha": 200,
+        "Chicken Bhujing": 150,
+        "Pattice": 20,
+        "Pattice Pav": 25,
         "Omelette Pav": 30,
         "Mojito": 50,
         "Blue Lagoon": 50,
-        "Pink Lemonade": 50,
+        "Orange Lemonade": 50,
         "Chicken Container": 150
     };
 
     let totalAmount = 0;
 
-    function getCustomAmount() {
-        return parseInt(document.getElementById('customAmount').value) || 0;
-    }
+   
 
     function updateTotal() {
         const dishTotal = Object.keys(prices).reduce((sum, key) => {
             const quantity = parseInt(document.getElementById(key).value) || 0;
             return sum + (prices[key] * quantity);
         }, 0);
-        const custom = getCustomAmount();
-        totalAmount = dishTotal + custom;
+        totalAmount = dishTotal;
         document.getElementById('totalAmount').textContent = totalAmount;
     }
 
@@ -57,9 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.getElementById('customAmount').addEventListener('input', () => {
-        updateTotal();
-    });
+   
 
     document.getElementById('finalizeOrder').addEventListener('click', async () => {
         const finalizeButton = document.getElementById('finalizeOrder');
@@ -67,69 +62,80 @@ document.addEventListener('DOMContentLoaded', () => {
         finalizeButton.disabled = true;
         spinner.style.display = 'inline-block';
         finalizeButton.childNodes[1].textContent = ' Finalizing...';
-
-        const paymentMode = document.getElementById('paymentMode').value;
-        const customAmount = getCustomAmount();
-        const notes = document.getElementById('notes').value;
-        const customerName = document.getElementById('customerName').value; // Get customer name
-
+    
+        const customerName = document.getElementById('customerName').value;
+        const customerPhone = document.getElementById('customerPhone').value;
+        const pickupTime = document.getElementById('pickupTime').value;
+        const transactionId = document.getElementById('transactionId').value;
+        const paymentScreenshot = document.getElementById('paymentScreenshot').files[0];
+    
+        if (!pickupTime || !transactionId || !paymentScreenshot) {
+            alert('Please fill all required fields!');
+            finalizeButton.disabled = false;
+            spinner.style.display = 'none';
+            finalizeButton.childNodes[1].textContent = ' Finalize Preorder';
+            return;
+        }
+    
+        // Convert payment screenshot to Base64
+        const paymentScreenshotBase64 = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result.split(',')[1]); // Get Base64 string
+            reader.onerror = reject;
+            reader.readAsDataURL(paymentScreenshot);
+        });
+    
         const orderData = {
-            paymentMode,
+            customerName,
+            customerPhone,
+            pickupTime,
+            transactionId,
+            paymentScreenshot: paymentScreenshotBase64,
             totalAmount,
-            customAmount,
-            notes,
-            customerName, // Include customer name
-            "Pork Chilly": document.getElementById('Pork Chilly').value,
-            "Pork Vindaloo": document.getElementById('Pork Vindaloo').value,
-            "Pork Sarpotel": document.getElementById('Pork Sarpotel').value,
-            "Pork Sukha": document.getElementById('Pork Sukha').value,
-            "Chicken Bhujing": document.getElementById('Chicken Bhujing').value,
-            "Pattice": document.getElementById('Pattice').value,
-            "Pattice Pav": document.getElementById('Pattice Pav').value,
-            "Omelette Pav": document.getElementById('Omelette Pav').value,
-            "Mojito": document.getElementById('Mojito').value,
-            "Blue Lagoon": document.getElementById('Blue Lagoon').value,
-            "Pink Lemonade": document.getElementById('Pink Lemonade').value,
-            "Chicken Container": document.getElementById('Chicken Container').value
+            dishes: Object.keys(prices).reduce((acc, dish) => {
+                acc[dish] = document.getElementById(dish).value || 0;
+                return acc;
+            }, {}),
         };
-
+    
         try {
-            const firestoreResponse = await fetch("/api/logToFirestore", {
-                method: "POST",
+            const response = await fetch('/api/preorders', {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(orderData)
+                body: JSON.stringify(orderData),
             });
-
-
-
-            if (firestoreResponse.ok) {
-                const firestoreData = await firestoreResponse.json();
-                alert(`Order Finalized! Order Number: ${firestoreData.orderNumber}`); // ✅ Here
+    
+            if (response.ok) {
+                const result = await response.json();
+                alert('Preorder finalized successfully!');
+                console.log('Payment Screenshot URL:', result.publicUrl);
                 resetForm();
             } else {
-                throw new Error('Failed to submit data');
+                throw new Error('Failed to log preorder');
             }
-            
-
         } catch (error) {
             console.error('Error:', error);
             alert('Something went wrong!');
         }
-
+    
         finalizeButton.disabled = false;
         spinner.style.display = 'none';
-        finalizeButton.childNodes[1].textContent = ' Finalize Order';
+        finalizeButton.childNodes[1].textContent = ' Finalize Preorder';
     });
 
     function resetForm() {
         document.querySelectorAll('.dish input').forEach(input => {
             input.value = 0;
         });
-        document.getElementById('customAmount').value = "";
-        document.getElementById('notes').value = "";
-        document.getElementById('paymentMode').value = "Cash";
+
+        // No need to reset paymentMode here if you want the selection to persist
         document.getElementById('totalAmount').textContent = '0';
         document.getElementById('customerName').value = "";
 
+        // Set Cash as default selected payment mode
+        
     }
+
+    // Set Cash as default selected on initial load
+   
 });

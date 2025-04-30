@@ -23,17 +23,17 @@ const ordersRef = collection(db, "VU_billing");
 
 // Updated dish prices
 const dishPrices = {
-    "Pork Chilly": 100,
-    "Pork Vindaloo": 100,
-    "Pork Sarpotel": 100,
-    "Pork Sukha": 100,
-    "Chicken Bhujing": 100,
-    "Pattice": 25,
-    "Pattice Pav": 30,
+    "Pork Chilly": 200,
+    "Pork Vindaloo": 220,
+    "Pork Sarpotel": 220,
+    "Pork Sukha": 200,
+    "Chicken Bhujing": 150,
+    "Pattice": 20,
+    "Pattice Pav": 25,
     "Omelette Pav": 30,
     "Mojito": 50,
     "Blue Lagoon": 50,
-    "Pink Lemonade": 50,
+    "Orange Lemonade": 50,
     "Chicken Container": 150
 };
 
@@ -85,7 +85,7 @@ function renderOrders(orders) {
 
         orderCard.innerHTML = `
             <div class="order-header">
-                <h3>Order #${order.orderNumber}</h3>
+                <h2 style="color: red;">Order #${order.orderNumber}</h2>
                 <p><strong>Customer Name:</strong> ${order.customerName}</p>
                 <p><strong>Payment Mode:</strong> ${order.paymentMode}</p>
                 <p><strong>Total Amount:</strong> ₹<span class="amount-value">${order.totalAmount}</span></p>
@@ -94,7 +94,7 @@ function renderOrders(orders) {
 
             <div class="order-details">
                 <h4>Dish Summary:</h4>
-                <ul class="dish-list">${dishSummary}</ul>
+                <ol type="A" class="dish-list" style="font-size: 1.2em; color: red;" >${dishSummary}</ol>
                 <div class="dish-inputs" style="display: none;">${dishInputs}</div>
             </div>
 
@@ -232,6 +232,6 @@ function getDishList() {
     return [
         "Pork Chilly", "Pork Vindaloo", "Pork Sarpotel", "Pork Sukha",
         "Chicken Bhujing", "Pattice", "Pattice Pav", "Omelette Pav",
-        "Mojito", "Blue Lagoon", "Pink Lemonade", "Chicken Container"
+        "Mojito", "Blue Lagoon", "Orange Lemonade", "Chicken Container"
     ];
 }
