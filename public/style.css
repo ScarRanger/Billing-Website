@@ -506,7 +506,7 @@ select:after {
 
 /* Payment Note */
 .payment-note {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #ff0000; /* Red color to emphasize the note */
     margin-top: 10px;
     font-style: italic;
@@ -534,4 +534,43 @@ select:after {
 .contact-link:hover {
     text-decoration: underline; /* Add underline on hover */
     color: #0056b3; /* Darker blue on hover */
+}
+
+/* Stall Info Section */
+.stall-info {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.stall-note {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.preorder-ended {
+    text-align: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+}
+
+.preorder-ended h1 {
+    font-size: 2rem;
+    color: #ff0000; /* Red color for emphasis */
+    margin-bottom: 10px;
+}
+
+.preorder-ended p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.preorder-ended .contact-link {
+    color: #007bff; /* Blue color for the contact link */
+    text-decoration: none;
+}
+
+.preorder-ended .contact-link:hover {
+    text-decoration: underline;
 }

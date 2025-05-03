@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "Mojito": 50,
         "Blue Lagoon": 50,
         "Orange Lemonade": 50,
-        "Chicken Container": 150
+        "Chicken Container": 150,
+        "Mineral Water": 20
     };
 
     let totalAmount = 0;
@@ -103,7 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "Mojito": document.getElementById('Mojito').value,
             "Blue Lagoon": document.getElementById('Blue Lagoon').value,
             "Orange Lemonade": document.getElementById('Orange Lemonade').value,
-            "Chicken Container": document.getElementById('Chicken Container').value
+            "Chicken Container": document.getElementById('Chicken Container').value,
+            "Mineral Water": document.getElementById('Mineral Water').value
+
         };
 
         try {

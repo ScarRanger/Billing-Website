@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let totalAmount = 0;
 
-   
+
 
     function updateTotal() {
         const dishTotal = Object.keys(prices).reduce((sum, key) => {
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-   
+
 
     document.getElementById('finalizeOrder').addEventListener('click', async () => {
         const finalizeButton = document.getElementById('finalizeOrder');
@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
         finalizeButton.disabled = true;
         spinner.style.display = 'inline-block';
         finalizeButton.childNodes[1].textContent = ' Finalizing...';
-    
+
         const customerName = document.getElementById('customerName').value;
         const customerPhone = document.getElementById('customerPhone').value;
         const pickupTime = document.getElementById('pickupTime').value;
         const transactionId = document.getElementById('transactionId').value;
         const paymentScreenshot = document.getElementById('paymentScreenshot').files[0];
-    
+
         if (!pickupTime || !transactionId || !paymentScreenshot) {
             alert('Please fill all required fields!');
             finalizeButton.disabled = false;
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             finalizeButton.childNodes[1].textContent = ' Finalize Preorder';
             return;
         }
-    
+
         // Convert payment screenshot to Base64
         const paymentScreenshotBase64 = await new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.onerror = reject;
             reader.readAsDataURL(paymentScreenshot);
         });
-    
+
         const orderData = {
             customerName,
             customerPhone,
@@ -97,17 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 return acc;
             }, {}),
         };
-    
+
         try {
             const response = await fetch('/api/preorders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData),
             });
-    
+
             if (response.ok) {
                 const result = await response.json();
-                alert('Preorder finalized successfully!');
+                alert('Preorder finalized successfully! Collect the order from CYP Stall');
                 console.log('Payment Screenshot URL:', result.publicUrl);
                 resetForm();
             } else {
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error:', error);
             alert('Something went wrong!');
         }
-    
+
         finalizeButton.disabled = false;
         spinner.style.display = 'none';
         finalizeButton.childNodes[1].textContent = ' Finalize Preorder';
@@ -128,14 +128,19 @@ document.addEventListener('DOMContentLoaded', () => {
             input.value = 0;
         });
 
-        // No need to reset paymentMode here if you want the selection to persist
+        // Reset total amount
         document.getElementById('totalAmount').textContent = '0';
-        document.getElementById('customerName').value = "";
 
-        // Set Cash as default selected payment mode
-        
+        // Clear customer details
+        document.getElementById('customerName').value = "";
+        document.getElementById('customerPhone').value = "";
+        document.getElementById('pickupTime').value = "";
+        document.getElementById('transactionId').value = "";
+        document.getElementById('paymentScreenshot').value = ""; // Clear file input
+
+
     }
 
     // Set Cash as default selected on initial load
-   
+
 });

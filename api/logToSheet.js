@@ -30,9 +30,6 @@ export default async function handler(req, res) {
 
         const sheetId = process.env.GOOGLE_SHEET_ID;
 
-        // Optional: add a finalized timestamp if needed
-        // const finalizedAt = new Date().toLocaleString();
-
         const dishList = [
             "Pork Chilly",
             "Pork Vindaloo",
@@ -45,7 +42,8 @@ export default async function handler(req, res) {
             "Mojito",
             "Blue Lagoon",
             "Orange Lemonade",
-            "Chicken Container"
+            "Chicken Container",
+            "Mineral Water"
         ];
 
         // Construct row data in the expected column order
@@ -53,10 +51,12 @@ export default async function handler(req, res) {
         dishList.forEach(dish => row.push(dishes[dish] || 0));
         row.push(customAmount, totalAmount, paymentMode, notes);
 
+        // Append the row to the next available row in the sheet
         await sheets.spreadsheets.values.append({
             spreadsheetId: sheetId,
-            range: 'main!A2',
+            range: 'main', // Specify the sheet name only
             valueInputOption: 'USER_ENTERED',
+            insertDataOption: 'INSERT_ROWS', // Ensure new rows are inserted
             requestBody: {
                 values: [row],
             },

@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const prices = {
         "Mojito": 50,
         "Blue Lagoon": 50,
-        "Orange Lemonade": 50
+        "Orange Lemonade": 50,
+        "Mineral Water": 20,
     };
 
     let totalAmount = 0;

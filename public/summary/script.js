@@ -34,7 +34,8 @@ const dishPrices = {
     "Mojito": 50,
     "Blue Lagoon": 50,
     "Orange Lemonade": 50,
-    "Chicken Container": 150
+    "Chicken Container": 150,
+    "Mineral Water": 20 
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -86,8 +87,15 @@ function renderOrders(orders) {
         orderCard.innerHTML = `
             <div class="order-header">
                 <h2 style="color: red;">Order #${order.orderNumber}</h2>
-                <p><strong>Customer Name:</strong> ${order.customerName}</p>
-                <p><strong>Payment Mode:</strong> ${order.paymentMode}</p>
+                <p><strong>Customer Name:</strong> <span class="customer-name">${order.customerName}</span></p>
+                <input type="text" class="edit-customer-name" value="${order.customerName}" style="display: none;" />
+
+                <p><strong>Payment Mode:</strong> <span class="payment-mode">${order.paymentMode}</span></p>
+                <select class="edit-payment-mode" style="display: none;">
+                    <option value="Cash" ${order.paymentMode === "Cash" ? "selected" : ""}>Cash</option>
+                    <option value="UPI" ${order.paymentMode === "UPI" ? "selected" : ""}>UPI</option>
+                </select>
+
                 <p><strong>Total Amount:</strong> ₹<span class="amount-value">${order.totalAmount}</span></p>
                 <p><strong>Timestamp:</strong> ${new Date(finalizedAt).toLocaleString()}</p>
             </div>
@@ -124,6 +132,11 @@ function renderOrders(orders) {
         const markBtn = orderCard.querySelector(".mark-done");
         const amountValueSpan = orderCard.querySelector(".amount-value");
 
+        const customerNameSpan = orderCard.querySelector(".customer-name");
+        const customerNameInput = orderCard.querySelector(".edit-customer-name");
+        const paymentModeSpan = orderCard.querySelector(".payment-mode");
+        const paymentModeSelect = orderCard.querySelector(".edit-payment-mode");
+
         editBtn.addEventListener("click", () => {
             editBtn.style.display = "none";
             saveEditBtn.style.display = "inline-block";
@@ -131,6 +144,12 @@ function renderOrders(orders) {
             dishInputsDiv.style.display = "block";
             notes.contentEditable = true;
             amountInput.style.display = "inline-block";
+
+            customerNameSpan.style.display = "none";
+            customerNameInput.style.display = "inline-block";
+
+            paymentModeSpan.style.display = "none";
+            paymentModeSelect.style.display = "inline-block";
         });
 
         saveEditBtn.addEventListener("click", async () => {
@@ -141,8 +160,16 @@ function renderOrders(orders) {
             notes.contentEditable = false;
             amountInput.style.display = "none";
 
+            customerNameSpan.style.display = "inline-block";
+            customerNameInput.style.display = "none";
+
+            paymentModeSpan.style.display = "inline-block";
+            paymentModeSelect.style.display = "none";
+
             const updatedFields = {
-                notes: notes.innerText.trim()
+                notes: notes.innerText.trim(),
+                customerName: customerNameInput.value.trim(),
+                paymentMode: paymentModeSelect.value
             };
 
             const inputs = dishInputsDiv.querySelectorAll("input");
@@ -232,6 +259,6 @@ function getDishList() {
     return [
         "Pork Chilly", "Pork Vindaloo", "Pork Sarpotel", "Pork Sukha",
         "Chicken Bhujing", "Pattice", "Pattice Pav", "Omelette Pav",
-        "Mojito", "Blue Lagoon", "Orange Lemonade", "Chicken Container"
+        "Mojito", "Blue Lagoon", "Orange Lemonade", "Chicken Container","Mineral Water"
     ];
 }

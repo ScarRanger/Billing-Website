@@ -10,9 +10,13 @@
 
 <body>
     <div class="container">
-        <h1 class="title">Vadwal Utsav Pre-Order</h1>
+        <h1 class="title"> CYP <br> Vadwal Utsav Pre-Order <br> <i> Stall Number: 36</i></h1>
+        <!-- <div class="preorder-ended">
+            <h1>Preorders have ended</h1>
+            <p>For queries, please contact <a href="tel:+919028125686" class="contact-link"><strong>9028125686</strong></a>.</p>
+        </div> -->
 
-        <div class="order-form">
+        <div class="order-form" >
             <!-- Customer Name Input -->
             <div class="name">
                 <label for="customerName">Customer Name</label>
@@ -83,7 +87,7 @@
                         <button class="increase">+</button>
                     </div>
                 </div>
-                <div class="dish">
+                <div class="dish" style="display: none;">
                     <label for="Omelette Pav">Omelette Pav (₹30)</label>
                     <div class="quantity">
                         <button class="decrease">-</button>
@@ -180,9 +184,13 @@
                     any queries.
                 </p>
             </div>
+
+            <div class="stall-info">
+                <p class="stall-note">Pickup from CYP Stall</p>
+            </div>
             <!-- Finalize Button -->
             <button id="finalizeOrder" class="btn-finalize">
-                <span class="spinner" style="display:none;">⏳</span> Finalize PreOrder
+                <span class="spinner" style="display:none;">⏳</span> Finalize Pre - Order
             </button>
         </div>
     </div>
