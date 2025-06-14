@@ -16,10 +16,8 @@ export default async function handler(req, res) {
     }
 
     try {
-        const data = req.body;
-
-        const counterRef = db.collection('VU_counters').doc('orderNumber');
-        const ordersRef = db.collection('VU_billing');
+        const data = req.body;        const counterRef = db.collection('counters').doc('orderNumber');
+        const ordersRef = db.collection(ORDERS_COLLECTION);
 
         let orderNumber;
 

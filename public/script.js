@@ -1,17 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Load configuration
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Set UPI ID and contact information
+        document.getElementById('upiId').textContent = process.env.UPI_ID || 'Loading...';
+        document.getElementById('contactPhone').textContent = process.env.CONTACT_PHONE || 'Loading...';
+        document.getElementById('contactNumber').textContent = process.env.CONTACT_PHONE || 'Loading...';
+        document.getElementById('contactNumber2').textContent = process.env.CONTACT_PHONE || 'Loading...';
+        document.getElementById('contactLink').href = `tel:${process.env.CONTACT_PHONE}`;
+        document.getElementById('contactLink2').href = `tel:${process.env.CONTACT_PHONE}`;
+        document.getElementById('businessName').textContent = process.env.BUSINESS_NAME || 'Loading...';
+        document.getElementById('stallNumber').textContent = process.env.STALL_NUMBER || 'Loading...';
+    } catch (error) {
+        console.error('Error loading configuration:', error);
+    }
+
     const prices = {
-        "Pork Chilly": 200,
-        "Pork Vindaloo": 220,
-        "Pork Sarpotel": 220,
-        "Pork Sukha": 200,
-        "Chicken Bhujing": 150,
-        "Pattice": 20,
-        "Pattice Pav": 25,
-        "Omelette Pav": 30,
-        "Mojito": 50,
-        "Blue Lagoon": 50,
-        "Orange Lemonade": 50,
-        "Chicken Container": 150
+        "Item1": 100,
+        "Item2": 150,
+        "Item3": 200,
+        "Item4": 250,
+        "Drink1": 50,
+        "Drink2": 50,
+        "Drink3": 50,
+        "Special1": 300,
+        "Special2": 350
     };
 
     let totalAmount = 0;

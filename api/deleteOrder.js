@@ -1,13 +1,11 @@
-// /api/logToFirestore.js
-
-import { db } from '../lib/firebaseAdmin';
+import { db, ORDERS_COLLECTION } from '../lib/firebaseAdmin';
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         try {
             const data = req.body;  // The order data sent from the client
             // Log the order data to the Firestore collection
-            await db.collection('VU_billing').add(data);
+            await db.collection(ORDERS_COLLECTION).add(data);
             res.status(200).json({ status: 'Order logged to Firestore' });
         } catch (error) {
             console.error('Error logging to Firestore:', error);

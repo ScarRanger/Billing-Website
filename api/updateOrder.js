@@ -1,14 +1,4 @@
-import admin from 'firebase-admin';
-import dotenv from 'dotenv';
-dotenv.config();
-
-if (!admin.apps.length) {
-    admin.initializeApp({
-        credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT))
-    });
-}
-
-const db = admin.firestore();
+import { db, ORDERS_COLLECTION } from '../lib/firebaseAdmin';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -17,7 +7,7 @@ export default async function handler(req, res) {
 
     try {
         const { id, updatedData } = req.body;
-        await db.collection('VU_billing').doc(id).update(updatedData);
+        await db.collection(ORDERS_COLLECTION).doc(id).update(updatedData);
         res.status(200).json({ message: 'Order updated successfully' });
     } catch (error) {
         console.error("Failed to update Firestore:", error);

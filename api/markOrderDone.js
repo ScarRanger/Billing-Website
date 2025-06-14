@@ -1,15 +1,6 @@
-import admin from 'firebase-admin';
-import dotenv from 'dotenv';
+import { db, ORDERS_COLLECTION } from '../lib/firebaseAdmin';
 
-dotenv.config();
 
-if (!admin.apps.length) {
-    admin.initializeApp({
-        credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT))
-    });
-}
-
-const db = admin.firestore();
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -23,7 +14,7 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'Missing order ID' });
         }
 
-        const orderRef = db.collection('VU_billing').doc(id);
+        const orderRef = db.collection(ORDERS_COLLECTION).doc(id);
 
         // Only mark as done, assuming edits are already applied
         await orderRef.update({

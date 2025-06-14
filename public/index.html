@@ -10,10 +10,10 @@
 
 <body>
     <div class="container">
-        <h1 class="title"> CYP <br> Vadwal Utsav Pre-Order <br> <i> Stall Number: 36</i></h1>
+        <h1 class="title"> Your Business Name <br> Order Pre-Order <br> <i> Stall Number: <span id="stallNumber">Loading...</span></i></h1>
         <!-- <div class="preorder-ended">
             <h1>Preorders have ended</h1>
-            <p>For queries, please contact <a href="tel:+919028125686" class="contact-link"><strong>9028125686</strong></a>.</p>
+            <p>For queries, please contact <a href="tel:" class="contact-link" id="contactLink"><strong id="contactNumber">Loading...</strong></a>.</p>
         </div> -->
 
         <div class="order-form" >
@@ -32,103 +32,82 @@
             <!-- Dish Selection -->
             <div class="dish-group">
                 <div class="dish">
-                    <label for="Pork Chilly">Pork Chilly (₹200)</label>
+                    <label for="Item1">Item 1 (₹100)</label>
                     <div class="quantity">
                         <button class="decrease">-</button>
-                        <input type="number" id="Pork Chilly" value="0" min="0">
+                        <input type="number" id="Item1" value="0" min="0">
                         <button class="increase">+</button>
                     </div>
                 </div>
                 <div class="dish">
-                    <label for="Pork Vindaloo">Pork Vindaloo (₹220)</label>
+                    <label for="Item2">Item 2 (₹150)</label>
                     <div class="quantity">
                         <button class="decrease">-</button>
-                        <input type="number" id="Pork Vindaloo" value="0" min="0">
+                        <input type="number" id="Item2" value="0" min="0">
                         <button class="increase">+</button>
                     </div>
                 </div>
                 <div class="dish">
-                    <label for="Pork Sarpotel">Pork Sarpotel (₹220)</label>
+                    <label for="Item3">Item 3 (₹200)</label>
                     <div class="quantity">
                         <button class="decrease">-</button>
-                        <input type="number" id="Pork Sarpotel" value="0" min="0">
+                        <input type="number" id="Item3" value="0" min="0">
                         <button class="increase">+</button>
                     </div>
                 </div>
                 <div class="dish">
-                    <label for="Pork Sukha">Pork Sukha (₹200)</label>
+                    <label for="Item4">Item 4 (₹250)</label>
                     <div class="quantity">
                         <button class="decrease">-</button>
-                        <input type="number" id="Pork Sukha" value="0" min="0">
-                        <button class="increase">+</button>
-                    </div>
-                </div>
-                <div class="dish">
-                    <label for="Chicken Bhujing">Chicken Bhujing (₹150)</label>
-                    <div class="quantity">
-                        <button class="decrease">-</button>
-                        <input type="number" id="Chicken Bhujing" value="0" min="0">
-                        <button class="increase">+</button>
-                    </div>
-                </div>
-                <div class="dish">
-                    <label for="Pattice">Pattice (₹20)</label>
-                    <div class="quantity">
-                        <button class="decrease">-</button>
-                        <input type="number" id="Pattice" value="0" min="0">
-                        <button class="increase">+</button>
-                    </div>
-                </div>
-                <div class="dish">
-                    <label for="Pattice Pav">Pattice Pav (₹25)</label>
-                    <div class="quantity">
-                        <button class="decrease">-</button>
-                        <input type="number" id="Pattice Pav" value="0" min="0">
-                        <button class="increase">+</button>
-                    </div>
-                </div>
-                <div class="dish" style="display: none;">
-                    <label for="Omelette Pav">Omelette Pav (₹30)</label>
-                    <div class="quantity">
-                        <button class="decrease">-</button>
-                        <input type="number" id="Omelette Pav" value="0" min="0">
-                        <button class="increase">+</button>
-                    </div>
-                </div>
-                <div class="dish">
-                    <label for="Chicken Container">Chicken Container (₹150)</label>
-                    <div class="quantity">
-                        <button class="decrease">-</button>
-                        <input type="number" id="Chicken Container" value="0" min="0">
+                        <input type="number" id="Item4" value="0" min="0">
                         <button class="increase">+</button>
                     </div>
                 </div>
             </div>
 
-
             <!-- Drink Selection -->
             <div class="dish-group">
                 <div class="dish">
-                    <label for="Mojito">Mojito (₹50)</label>
+                    <label for="Drink1">Drink 1 (₹50)</label>
                     <div class="quantity">
                         <button class="decrease">-</button>
-                        <input type="number" id="Mojito" value="0" min="0">
+                        <input type="number" id="Drink1" value="0" min="0">
                         <button class="increase">+</button>
                     </div>
                 </div>
                 <div class="dish">
-                    <label for="Blue Lagoon">Blue Lagoon (₹50)</label>
+                    <label for="Drink2">Drink 2 (₹50)</label>
                     <div class="quantity">
                         <button class="decrease">-</button>
-                        <input type="number" id="Blue Lagoon" value="0" min="0">
+                        <input type="number" id="Drink2" value="0" min="0">
                         <button class="increase">+</button>
                     </div>
                 </div>
                 <div class="dish">
-                    <label for="Orange Lemonade">Orange Lemonade (₹50)</label>
+                    <label for="Drink3">Drink 3 (₹50)</label>
                     <div class="quantity">
                         <button class="decrease">-</button>
-                        <input type="number" id="Orange Lemonade" value="0" min="0">
+                        <input type="number" id="Drink3" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Items -->
+            <div class="dish-group">
+                <div class="dish">
+                    <label for="Special1">Special 1 (₹300)</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Special1" value="0" min="0">
+                        <button class="increase">+</button>
+                    </div>
+                </div>
+                <div class="dish">
+                    <label for="Special2">Special 2 (₹350)</label>
+                    <div class="quantity">
+                        <button class="decrease">-</button>
+                        <input type="number" id="Special2" value="0" min="0">
                         <button class="increase">+</button>
                     </div>
                 </div>
@@ -155,12 +134,12 @@
             <div class="upi-section">
                 <!-- UPI QR Code -->
                 <div class="upi-qr">
-                    <img src="images/crystalqr.jpeg" alt="UPI QR Code" class="qr-code">
+                    <!-- Placeholder QR code -->
+                    <img src="images/placeholder-qr.png" alt="UPI QR Code" class="qr-code">
                 </div>
                 <!-- UPI ID -->
-                <p class="upi-id">UPI ID: crystal.colaco@okicici</p>
-                <p class="upi-phone">Mobile: 9028125686</p>
-
+                <p class="upi-id">UPI ID: <span id="upiId">Loading...</span></p>
+                <p class="upi-phone">Mobile: <span id="contactPhone">Loading...</span></p>
             </div>
             <!-- Transaction ID -->
             <div class="transaction-id">
@@ -180,13 +159,12 @@
 
             <div class="contact-section">
                 <p class="contact-note">
-                    Please contact <a href="tel:+919028125686" class="contact-link"><strong>9028125686</strong></a> for
-                    any queries.
+                    Please contact <a href="tel:" class="contact-link" id="contactLink2"><strong id="contactNumber2">Loading...</strong></a> for any queries.
                 </p>
             </div>
 
             <div class="stall-info">
-                <p class="stall-note">Pickup from CYP Stall</p>
+                <p class="stall-note">Pickup from <span id="businessName">Loading...</span> Stall</p>
             </div>
             <!-- Finalize Button -->
             <button id="finalizeOrder" class="btn-finalize">

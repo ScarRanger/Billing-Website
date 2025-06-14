@@ -1,9 +1,9 @@
-import { db } from '../lib/firebaseAdmin';
+import { db, ORDERS_COLLECTION } from '../lib/firebaseAdmin';
 
 export default async function handler(req, res) {
     if (req.method === 'GET') {
         try {
-            const ordersSnapshot = await db.collection('VU_billing')
+            const ordersSnapshot = await db.collection(ORDERS_COLLECTION)
                 .orderBy('orderNumber', 'desc')
                 .get();
 
@@ -13,15 +13,12 @@ export default async function handler(req, res) {
 
             const orders = ordersSnapshot.docs.map(doc => {
                 const data = doc.data();
-
-                // Convert Firestore timestamp to ISO string
                 const timestamp = data.timestamp?.toDate?.().toISOString?.() || '';
 
-                // Extract and ensure dish data is flat and display-safe
                 const dishFields = [
-                    "Pork Chilly", "Pork Vindaloo", "Pork Sarpotel", "Pork Sukha", "Chicken Bhujing",
-                    "Pattice", "Pattice Pav", "Omelette Pav", "Mojito", "Blue Lagoon", "Orange Lemonade",
-                    "Chicken Container"
+                    "Item1", "Item2", "Item3", "Item4",
+                    "Drink1", "Drink2", "Drink3",
+                    "Special1", "Special2"
                 ];
 
                 const dishes = {};

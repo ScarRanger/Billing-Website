@@ -92,20 +92,15 @@ document.addEventListener('DOMContentLoaded', () => {
             totalAmount,
             customAmount,
             notes,
-            customerName, // Include customer name
-            "Pork Chilly": document.getElementById('Pork Chilly').value,
-            "Pork Vindaloo": document.getElementById('Pork Vindaloo').value,
-            "Pork Sarpotel": document.getElementById('Pork Sarpotel').value,
-            "Pork Sukha": document.getElementById('Pork Sukha').value,
-            "Chicken Bhujing": document.getElementById('Chicken Bhujing').value,
-            "Pattice": document.getElementById('Pattice').value,
-            "Pattice Pav": document.getElementById('Pattice Pav').value,
-            "Omelette Pav": document.getElementById('Omelette Pav').value,
-            "Mojito": document.getElementById('Mojito').value,
-            "Blue Lagoon": document.getElementById('Blue Lagoon').value,
-            "Orange Lemonade": document.getElementById('Orange Lemonade').value,
-            "Chicken Container": document.getElementById('Chicken Container').value,
-            "Mineral Water": document.getElementById('Mineral Water').value
+            customerName, // Include customer name            "Item1": document.getElementById('Item1').value,
+            "Item2": document.getElementById('Item2').value,
+            "Item3": document.getElementById('Item3').value,
+            "Item4": document.getElementById('Item4').value,
+            "Drink1": document.getElementById('Drink1').value,
+            "Drink2": document.getElementById('Drink2').value,
+            "Drink3": document.getElementById('Drink3').value,
+            "Special1": document.getElementById('Special1').value,
+            "Special2": document.getElementById('Special2').value
 
         };
 

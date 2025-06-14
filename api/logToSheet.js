@@ -28,22 +28,16 @@ export default async function handler(req, res) {
             ...dishes
         } = req.body;
 
-        const sheetId = process.env.GOOGLE_SHEET_ID;
-
-        const dishList = [
-            "Pork Chilly",
-            "Pork Vindaloo",
-            "Pork Sarpotel",
-            "Pork Sukha",
-            "Chicken Bhujing",
-            "Pattice",
-            "Pattice Pav",
-            "Omelette Pav",
-            "Mojito",
-            "Blue Lagoon",
-            "Orange Lemonade",
-            "Chicken Container",
-            "Mineral Water"
+        const sheetId = process.env.GOOGLE_SHEET_ID;        const dishList = [
+            "Item1",
+            "Item2", 
+            "Item3",
+            "Item4",
+            "Drink1",
+            "Drink2",
+            "Drink3",
+            "Special1",
+            "Special2"
         ];
 
         // Construct row data in the expected column order

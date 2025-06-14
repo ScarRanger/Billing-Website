@@ -1,7 +1,7 @@
 import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
 const db = getFirestore();
-const ordersRef = collection(db, "VU_billing");
+const ordersRef = collection(db, process.env.FIREBASE_COLLECTION_NAME || 'orders');
 
 // === 1. ORDER CUBES HANDLING ===
 
@@ -51,18 +51,15 @@ onSnapshot(q, (snapshot) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     const prices = {
-        "Pork Chilly": 200,
-        "Pork Vindaloo": 200,
-        "Pork Sarpotel": 200,
-        "Pork Sukha": 200,
-        "Chicken Bhujing": 150,
-        "Pattice": 20,
-        "Pattice Pav": 25,
-        "Omelette Pav": 30,
-        "Mojito": 50,
-        "Blue Lagoon": 50,
-        "Orange Lemonade": 50,
-        "Chicken Container": 150
+        "Item1": 100,
+        "Item2": 150,
+        "Item3": 200,
+        "Item4": 250,
+        "Drink1": 50,
+        "Drink2": 50,
+        "Drink3": 50,
+        "Special1": 300,
+        "Special2": 350
     };
 
     let totalAmount = 0;

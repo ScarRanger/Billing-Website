@@ -8,34 +8,30 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyClexhIGp7WV4r8FU3sOouwzAF_vWqvg4k",
-    authDomain: "cypmain-171b3.firebaseapp.com",
-    projectId: "cypmain-171b3",
-    storageBucket: "cypmain-171b3.appspot.com",
-    messagingSenderId: "108819960879",
-    appId: "1:108819960879:web:1c9d15d53cd1bf3dac62da"
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "your-project-id.firebaseapp.com",
+    projectId: "your-project-id",
+    storageBucket: "your-project-id.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const summaryList = document.getElementById('orderSummary');
-const ordersRef = collection(db, "VU_billing");
+const ordersRef = collection(db, process.env.FIREBASE_COLLECTION_NAME || 'orders');
 
-// Updated dish prices
+// Menu items and their prices
 const dishPrices = {
-    "Pork Chilly": 200,
-    "Pork Vindaloo": 220,
-    "Pork Sarpotel": 220,
-    "Pork Sukha": 200,
-    "Chicken Bhujing": 150,
-    "Pattice": 20,
-    "Pattice Pav": 25,
-    "Omelette Pav": 30,
-    "Mojito": 50,
-    "Blue Lagoon": 50,
-    "Orange Lemonade": 50,
-    "Chicken Container": 150,
-    "Mineral Water": 20 
+    "Item1": 100,
+    "Item2": 150,
+    "Item3": 200,
+    "Item4": 250,
+    "Drink1": 50,
+    "Drink2": 50,
+    "Drink3": 50,
+    "Special1": 300,
+    "Special2": 350
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -194,7 +190,7 @@ function renderOrders(orders) {
             dishList.innerHTML = renderDishes({ ...order, ...dishQuantities });
 
             try {
-                const orderDocRef = doc(db, "VU_billing", order.id);
+                const orderDocRef = doc(db, process.env.FIREBASE_COLLECTION_NAME || 'orders', order.id);
                 await updateDoc(orderDocRef, updatedFields);
             } catch (err) {
                 console.error("Failed to update order:", err);
@@ -206,7 +202,7 @@ function renderOrders(orders) {
             markBtn.textContent = "✔ Marked Done";
 
             try {
-                const orderDocRef = doc(db, "VU_billing", order.id);
+                const orderDocRef = doc(db, process.env.FIREBASE_COLLECTION_NAME || 'orders', order.id);
                 const finalizedAt = new Date();
                 await updateDoc(orderDocRef, { done: true, finalizedAt });
 
@@ -257,8 +253,8 @@ function renderDishInputs(order) {
 
 function getDishList() {
     return [
-        "Pork Chilly", "Pork Vindaloo", "Pork Sarpotel", "Pork Sukha",
-        "Chicken Bhujing", "Pattice", "Pattice Pav", "Omelette Pav",
-        "Mojito", "Blue Lagoon", "Orange Lemonade", "Chicken Container","Mineral Water"
+        "Item1", "Item2", "Item3", "Item4",
+        "Drink1", "Drink2", "Drink3",
+        "Special1", "Special2"
     ];
 }
